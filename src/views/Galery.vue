@@ -6,6 +6,16 @@
 	</div>
 </template>
 
+<style lang="scss" scoped>
+li {
+	list-style: none;
+
+	img {
+		width: 500px;
+	}
+}
+</style>
+
 <script>
 import axios from 'axios';
 
