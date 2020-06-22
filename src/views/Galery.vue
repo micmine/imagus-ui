@@ -1,29 +1,28 @@
 <template>
 	<div id="galery">
 		<li v-for="image in images" :key="image.uuid">
-			<img :src="image.source">
+			<img :src="image.source" :alt="image.title">
 		</li>
 	</div>
 </template>
 
 <script>
-	import axios from 'axios';
+import axios from 'axios';
 
-	let images;
-
-	axios.get("http://localhost:8000/image/list").then((resp) => {
-		images = resp.data;
-		console.log(images);
-	}).catch((error) => {
-		console.error(error);
-	});
-
-	export default {
-		data() {
-			return {
-				"images": images
-			}
+export default {
+	data() {
+		return {
+			"images": []
 		}
+	},
+	beforeCreate() {
+		axios.get("http://localhost:8000/image/list").then((resp) => {
+			this.images = resp.data;
+			console.log(resp.data);
+		}).catch((error) => {
+			console.error(error);
+		});
 	}
+}
 
 </script>
