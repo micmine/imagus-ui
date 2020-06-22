@@ -1,7 +1,7 @@
 <template>
 	<div id="galery">
 		<form method="POST" enctype='multipart/form-data' action="http://localhost:8000/image/upload">
-			<input type="file" name="image">
+			<input type="file" name="image" required>
 			<input type="hidden" name="redirect" value="http://localhost:8080">
 			<input type="submit" value="Upload">
 		</form>
@@ -30,7 +30,7 @@ li {
 	img:active {
 		display: relative;
 		top: 50px;
-		width: 100%;
+		width: 80%;
 		z-index: 5;
 	}
 }
