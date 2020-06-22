@@ -1,5 +1,11 @@
 <template>
 	<div id="galery">
+		<form method="POST" enctype='multipart/form-data' action="http://localhost:8000/image/upload">
+			<input type="file" name="image">
+			<input type="hidden" name="redirect" value="http://localhost:8080">
+			<input type="submit" value="Upload">
+		</form>
+
 		<li v-for="image in images" :key="image.uuid">
 			<img :src="image.source" :alt="image.title">
 		</li>
@@ -12,6 +18,20 @@ li {
 
 	img {
 		width: 500px;
+		z-index: 4;
+
+		-webkit-user-drag: none;
+		-khtml-user-drag: none;
+		-moz-user-drag: none;
+		-o-user-drag: none;
+		user-drag: none;
+	}
+
+	img:active {
+		display: relative;
+		top: 50px;
+		width: 100%;
+		z-index: 5;
 	}
 }
 </style>
