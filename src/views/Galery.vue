@@ -1,5 +1,7 @@
 <template>
 	<div id="galery">
+		<Edit :uuid="edit"></Edit>
+
 		<form method="POST" enctype='multipart/form-data' action="http://localhost:8000/image/upload">
 			<input type="text" name="title" required>
 			<input type="file" name="image" required>
@@ -34,8 +36,7 @@
 
 <style lang="scss" scoped>
 #galery {
-	list-style: none;
-
+	display: relative;
 	.images {
 		display: flex;
 		flex-wrap: wrap;
@@ -58,20 +59,24 @@ import axios from 'axios';
 import VueContext from 'vue-context';
 import 'vue-context/src/sass/vue-context.scss';
 
+import Edit from '../components/Edit';
+
 export default {
 	data() {
 		return {
-			"images": []
+			"images": [],
+			"edit": ""
 		}
 	},
 	components: {
-		VueContext
+		VueContext,
+		Edit
 	},
 	methods: {
 		onClick(text, uuid) {
 			console.log(text, uuid);
 			if (text === "edit") {
-				//sd
+				this.edit = uuid
 			} else if (text === "remove") {
 				axios.put("http://localhost:8000/image", uuid
 				).then((resp) => {
