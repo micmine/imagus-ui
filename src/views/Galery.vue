@@ -7,14 +7,14 @@
 			<input type="submit" value="Upload">
 		</form>
 
-		<li v-for="image in images" :key="image.uuid">
-			<div>
+		<div class="images">
+
+			<div class="image" v-for="image in images" :key="image.uuid">
 				<p>{{ image.title }}</p>
 				<img @contextmenu.prevent="$refs.menu.open($event, { uuid: image.uuid })" :src="image.source" :alt="image.title">
 			</div>
 
-		</li>
-
+		</div>
 		<vue-context ref="menu">
 			<template slot-scope="child">
 				<li>
@@ -33,8 +33,17 @@
 </template>
 
 <style lang="scss" scoped>
-li {
+#galery {
 	list-style: none;
+
+	.images {
+		display: flex;
+		flex-wrap: wrap;
+
+		.image {
+			display: inline-block;
+		}
+	}
 
 	img {
 		width: 500px;
