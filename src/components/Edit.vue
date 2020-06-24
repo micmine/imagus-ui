@@ -1,5 +1,5 @@
 <template>
-	<div class="edit" v-class="{active: isActive }">
+	<div class="edit" v-bind:class="{notActive: !isActive }">
 		<button v-on:click="check">Check</button>
 		sd
 
@@ -7,8 +7,11 @@
 </template>
 
 <style lang="scss" scoped>
-.edit {
+.notActive {
 	display: none;
+}
+
+.edit {
 	position: absolute;
 	top: 20vh;
 	left: 5vw;
@@ -29,6 +32,14 @@ export default {
 	data() {
 		return {
 			isActive: true
+		}
+	},
+	beforeMount: function () {
+		console.log(this.uuid)
+		if (this.uuid == "") {
+			this.isActive = false
+		} else {
+			this.isActive = true
 		}
 	},
 	methods: {
