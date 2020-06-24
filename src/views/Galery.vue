@@ -1,6 +1,6 @@
 <template>
 	<div id="galery">
-		<Edit v-bind:uuid="edit"></Edit>
+		<Edit v-bind:uuid.sync="edit"></Edit>
 
 		<form method="POST" enctype='multipart/form-data' action="http://localhost:8000/image/upload">
 			<input type="text" name="title" required>

@@ -1,8 +1,6 @@
 <template>
 	<div class="edit" v-bind:class="{notActive: !isActive }">
-		<button v-on:click="check">Check</button>
-		sd
-
+		<button v-on:click="submit">Submit</button>
 	</div>
 </template>
 
@@ -34,8 +32,7 @@ export default {
 			isActive: true
 		}
 	},
-	beforeMount: function () {
-		console.log(this.uuid)
+	mounted: function () {
 		if (this.uuid == "") {
 			this.isActive = false
 		} else {
@@ -43,8 +40,21 @@ export default {
 		}
 	},
 	methods: {
+		submit: function () {
+			this.uuid = "";
+		},
 		check: function () {
 			console.log(this.uuid);
+			if (this.uuid == "") {
+				this.isActive = false
+			} else {
+				this.isActive = true
+			}
+		}
+	},
+	watch: {
+		uuid: function () {
+			this.check()
 		}
 	}
 }
