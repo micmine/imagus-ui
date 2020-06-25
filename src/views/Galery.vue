@@ -3,10 +3,23 @@
 		<Edit v-bind:uuid.sync="edit"></Edit>
 
 		<form method="POST" enctype='multipart/form-data' action="http://localhost:8000/image/upload">
-			<input type="text" name="title" required>
-			<input type="file" name="image" required>
+			<input class="input" type="text" name="title" placeholder="title" required>
+			<div class="file">
+				<label class="file-label">
+					<input class="file-input" type="file" name="image" required>
+					<span class="file-cta">
+						<span class="file-label">
+							Choose a file…
+						</span>
+					</span>
+				</label>
+			</div>
 			<input type="hidden" name="redirect" value="http://localhost:8080">
-			<input type="submit" value="Upload">
+			<div class="field">
+				<div class="control">
+					<button class="button is-link">Upload</button>
+				</div>
+			</div>
 		</form>
 
 		<div class="images">
@@ -35,6 +48,7 @@
 </template>
 
 <style lang="scss" scoped>
+
 #galery {
 	display: relative;
 	.images {
@@ -43,12 +57,18 @@
 
 		.image {
 			display: inline-block;
+			padding: 1vh;
 		}
 	}
 
 	img {
-		width: 500px;
+		width: 400px;
 		z-index: 4;
+	}
+
+	form {
+		padding-left: 10%;
+		width: 80%;
 	}
 
 }

@@ -1,5 +1,7 @@
 <template>
 	<div class="edit" v-bind:class="{notActive: !isActive }">
+		
+
 		<button v-on:click="submit">Submit</button>
 	</div>
 </template>
@@ -29,7 +31,8 @@ export default {
 	props: ["uuid"],
 	data() {
 		return {
-			isActive: true
+			isActive: true,
+			data: {}
 		}
 	},
 	mounted: function () {
