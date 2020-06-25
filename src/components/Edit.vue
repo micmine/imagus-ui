@@ -20,10 +20,6 @@
 	z-index: 100;
 	background-color: red;
 }
-
-.active {
-	display: relative;
-}
 </style>
 
 <script>
@@ -44,7 +40,7 @@ export default {
 	},
 	methods: {
 		submit: function () {
-			this.uuid = "";
+			//this.isActive = false
 		},
 		check: function () {
 			console.log(this.uuid);

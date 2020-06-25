@@ -1,6 +1,7 @@
 <template>
 	<div id="galery">
 		<Edit v-bind:uuid.sync="edit"></Edit>
+		<Popup v-bind:source.sync="popup"></Popup>
 
 		<form method="POST" enctype='multipart/form-data' action="http://localhost:8000/image/upload">
 			<input class="input" type="text" name="title" placeholder="title" required>
@@ -26,12 +27,17 @@
 
 			<div class="image" v-for="image in images" :key="image.uuid">
 				<p>{{ image.title }}</p>
-				<img @contextmenu.prevent="$refs.menu.open($event, { uuid: image.uuid })" :src="image.source" :alt="image.title">
+				<img @contextmenu.prevent="$refs.menu.open($event, { uuid: image.uuid, source: image.source })" :src="image.source" :alt="image.title">
 			</div>
 
 		</div>
 		<vue-context ref="menu">
 			<template slot-scope="child">
+				<li>
+					<a @click.prevent="onClick($event.target.innerText, child.data)">
+						view
+					</a>
+				</li>
 				<li>
 					<a @click.prevent="onClick($event.target.innerText, child.data)">
 						edit
@@ -54,16 +60,13 @@
 	.images {
 		display: flex;
 		flex-wrap: wrap;
+		z-index: 1;
 
 		.image {
 			display: inline-block;
 			padding: 1vh;
+			width: 400px;
 		}
-	}
-
-	img {
-		width: 400px;
-		z-index: 4;
 	}
 
 	form {
@@ -80,31 +83,40 @@ import VueContext from 'vue-context';
 import 'vue-context/src/sass/vue-context.scss';
 
 import Edit from '../components/Edit';
+import Popup from '../components/Popup';
 
 export default {
 	data() {
 		return {
 			"images": [],
-			"edit": ""
+			"edit": "",
+			"popup": ""
 		}
 	},
 	components: {
 		VueContext,
-		Edit
+		Edit,
+		Popup
 	},
 	methods: {
-		onClick(text, uuid) {
-			console.log(text, uuid);
-			if (text === "edit") {
-				this.edit = uuid
+		onClick(text, contextdata) {
+			console.log(text, contextdata);
+			if (text == "view") {
+				this.popup = contextdata.source;
+			} else if (text === "edit") {
+				this.edit = contextdata.uuid;
 			} else if (text === "remove") {
-				axios.put("http://localhost:8000/image", uuid
+				axios.put("http://localhost:8000/image", contextdata
 				).then((resp) => {
 					console.log(resp.data);
 				}).catch((error) => {
 					console.error(error);
 				});
 			}
+		},
+		clear() {
+			this.edit = "";
+			this.popup = "";
 		}
 	},
 	beforeCreate() {
