@@ -1,5 +1,5 @@
 <template>
-	<div class="edit" v-bind:class="{notActive: !isActive }">
+	<div class="edit" v-bind:class="{notActive: !isActive}">
 		<div class="from">
 			<input class="input" type="text" v-model="image.title" placeholder="title">
 
@@ -44,12 +44,18 @@
 
 <script>
 import axios from 'axios';
+import store from "../store";
 
 export default {
-	props: ["uuid", "isActive"],
-	data() {
-		return {
-			image: {}
+	computed: {
+		uuid: function () {
+			return store.state.edit.uuid;
+		},
+		isActive: function () {
+			return store.state.edit.isActive;
+		},
+		image: function () {
+			return store.state.edit.image;
 		}
 	},
 	methods: {
@@ -57,22 +63,19 @@ export default {
 			this.hide();
 		},
 		hide: function () {
-			this.isActive = false;
+			store.state.edit.isActive = false;
 		},
 		load: function () {
-			axios.post("http://localhost:8000/image", { "uuid": this.uuid }).then((resp) => {
-				this.image = resp.data;
-				console.log(resp.data);
+			axios.post("http://localhost:8000/image", { "uuid": store.state.edit.uuid }).then((resp) => {
+				store.state.edit.image = resp.data;
 			}).catch((error) => {
 				console.error(error);
 			});
 		}
 	},
 	watch: {
-		isActive: function () {
-			if (this.isActive == true) {
-				this.load();
-			}
+		uuid: function () {
+			this.load();
 		}
 	}
 }

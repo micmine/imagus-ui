@@ -1,6 +1,6 @@
 <template>
 	<div class="popup" v-bind:class="{notActive: !isActive }">	
-		<img :src="this.source" v-on:click="hide">
+		<img :src="source" v-on:click="hide">
 	</div>
 </template>
 
@@ -18,25 +18,20 @@
 </style>
 
 <script>
+import store from "../store.js";
+
 export default {
-	props: ["source", "isActive"],
-	data() {
-		return {
-			data: {
-				image: {}
-			}
-		}
-	},
-	mounted: function () {
-		if (this.uuid == "") {
-			this.isActive = false
-		} else {
-			this.isActive = true
+	computed: {
+		isActive: function () {
+			return store.state.popup.isActive;
+		},
+		source: function () {
+			return store.state.popup.source;
 		}
 	},
 	methods: {
 		hide: function () {
-			this.isActive = false
+			store.state.popup.isActive = false;
 		},
 	},
 }

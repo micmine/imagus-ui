@@ -1,7 +1,7 @@
 <template>
 	<div id="galery">
-		<Edit v-bind:uuid="edit" v-bind:isActive.sync="editActive"></Edit>
-		<Popup v-bind:source="popup" v-bind:isActive.sync="popupActive"></Popup>
+		<Edit></Edit>
+		<Popup></Popup>
 
 		<form method="POST" enctype='multipart/form-data' action="http://localhost:8000/image/upload">
 			<input class="input" type="text" name="title" placeholder="title" required>
@@ -78,6 +78,7 @@
 </style>
 
 <script>
+import store from "../store.js";
 import axios from 'axios';
 import VueContext from 'vue-context';
 import 'vue-context/src/sass/vue-context.scss';
@@ -86,13 +87,9 @@ import Edit from '../components/Edit';
 import Popup from '../components/Popup';
 
 export default {
-	data() {
-		return {
-			"images": [],
-			"edit": "",
-			"editActive": false,
-			"popup": "",
-			"popupActive": false
+	computed: {
+		images: function () {
+			return store.state.images;
 		}
 	},
 	components: {
@@ -102,13 +99,12 @@ export default {
 	},
 	methods: {
 		onClick(text, contextdata) {
-			console.log(text, contextdata);
 			if (text == "view") {
-				this.popup = contextdata.source;
-				this.popupActive = true;
+				store.state.popup.source = contextdata.source;
+				store.state.popup.isActive = true;
 			} else if (text === "edit") {
-				this.edit = contextdata.uuid;
-				this.editActive = true;
+				store.state.edit.uuid = contextdata.uuid;
+				store.state.edit.isActive = true;
 			} else if (text === "remove") {
 				axios.put("http://localhost:8000/image", contextdata
 				).then((resp) => {
@@ -117,19 +113,10 @@ export default {
 					console.error(error);
 				});
 			}
-		},
-		clear() {
-			this.edit = "";
-			this.popup = "";
 		}
 	},
 	beforeCreate() {
-		axios.get("http://localhost:8000/image/list").then((resp) => {
-			this.images = resp.data;
-			console.log(resp.data);
-		}).catch((error) => {
-			console.error(error);
-		});
+		store.dispatch("fetchImages");
 	}
 }
 </script>
