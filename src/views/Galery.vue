@@ -1,7 +1,7 @@
 <template>
 	<div id="galery">
-		<Edit v-bind:uuid.sync="edit"></Edit>
-		<Popup v-bind:source.sync="popup"></Popup>
+		<Edit v-bind:uuid="edit" v-bind:isActive.sync="editActive"></Edit>
+		<Popup v-bind:source="popup" v-bind:isActive.sync="popupActive"></Popup>
 
 		<form method="POST" enctype='multipart/form-data' action="http://localhost:8000/image/upload">
 			<input class="input" type="text" name="title" placeholder="title" required>
@@ -90,7 +90,9 @@ export default {
 		return {
 			"images": [],
 			"edit": "",
-			"popup": ""
+			"editActive": false,
+			"popup": "",
+			"popupActive": false
 		}
 	},
 	components: {
@@ -103,8 +105,10 @@ export default {
 			console.log(text, contextdata);
 			if (text == "view") {
 				this.popup = contextdata.source;
+				this.popupActive = true;
 			} else if (text === "edit") {
 				this.edit = contextdata.uuid;
+				this.editActive = true;
 			} else if (text === "remove") {
 				axios.put("http://localhost:8000/image", contextdata
 				).then((resp) => {

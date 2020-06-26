@@ -1,7 +1,5 @@
 <template>
 	<div class="edit" v-bind:class="{notActive: !isActive }">
-		
-
 		<button v-on:click="submit">Submit</button>
 	</div>
 </template>
@@ -24,11 +22,12 @@
 
 <script>
 export default {
-	props: ["uuid"],
+	props: ["uuid", "isActive"],
 	data() {
 		return {
-			isActive: true,
-			data: {}
+			data: {
+				image: {}
+			}
 		}
 	},
 	mounted: function () {
@@ -40,21 +39,8 @@ export default {
 	},
 	methods: {
 		submit: function () {
-			//this.isActive = false
+			this.isActive = false
 		},
-		check: function () {
-			console.log(this.uuid);
-			if (this.uuid == "") {
-				this.isActive = false
-			} else {
-				this.isActive = true
-			}
-		}
 	},
-	watch: {
-		uuid: function () {
-			this.check()
-		}
-	}
 }
 </script>>

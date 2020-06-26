@@ -1,5 +1,5 @@
 <template>
-	<div class="edit" v-bind:class="{notActive: !isActive }">	
+	<div class="popup" v-bind:class="{notActive: !isActive }">	
 		<img :src="this.source" v-on:click="hide">
 	</div>
 </template>
@@ -9,43 +9,35 @@
 	display: none;
 }
 
-.edit {
+.popup {
 	position: absolute;
-	top: 0vh;
-	left: 0vw;
+	top: 5vh;
+	left: 5vw;
 	z-index: 100;
 }
 </style>
 
 <script>
 export default {
-	props: ["source"],
+	props: ["source", "isActive"],
 	data() {
 		return {
-			isActive: false,
-			data: {}
-		}
-	},
-	mounted: function () {
-		this.check();
-	},
-	methods: {
-		hide: function () {
-			//sd
-		},
-		check: function () {
-			console.log(this.source);
-			if (this.source == "") {
-				this.isActive = false
-			} else {
-				this.isActive = true
+			data: {
+				image: {}
 			}
 		}
 	},
-	watch: {
-		source: function () {
-			this.check();
+	mounted: function () {
+		if (this.uuid == "") {
+			this.isActive = false
+		} else {
+			this.isActive = true
 		}
-	}
+	},
+	methods: {
+		hide: function () {
+			this.isActive = false
+		},
+	},
 }
 </script>>
