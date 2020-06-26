@@ -21,6 +21,8 @@
 </style>
 
 <script>
+import axios from 'axios';
+
 export default {
 	props: ["uuid", "isActive"],
 	data() {
@@ -30,12 +32,20 @@ export default {
 			}
 		}
 	},
-	mounted: function () {
-		if (this.uuid == "") {
-			this.isActive = false
-		} else {
-			this.isActive = true
-		}
+	beforeUpdate: function () {
+		console.log({ data:  { "uuid": this.uuid } });
+		axios({
+			method: "get",
+			url: "http://localhost:8000/image",
+			params: { 
+				uuid: this.uuid 
+			}
+		}).then((resp) => {
+				this.image = resp.data;
+				console.log(resp.data);
+			}).catch((error) => {
+				console.error(error);
+			});
 	},
 	methods: {
 		submit: function () {
