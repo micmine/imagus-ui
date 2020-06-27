@@ -17,6 +17,7 @@ export default new Vuex.Store({
 			isActive: false
 		},
 		images: [],
+		deletedImages: [],
 		loadingStatus: false
 	},
 	mutations: {
@@ -37,7 +38,11 @@ export default new Vuex.Store({
 		},
 		SET_LOADING_STATUS(state, status) {
 			state.loadingStatus = status;
+		},
+		SET_DELETED_IMAGES(state, images) {
+			state.deletedImages = images;
 		}
+
 	},
 	actions: {
 		fetchImages(context) {
@@ -66,6 +71,16 @@ export default new Vuex.Store({
 			}).catch((error) => {
 				console.error(error);
 			});
-		}
+		},
+		fetchDeletedImages(context) {
+			context.commit("SET_LOADING_STATUS", true);
+			axios.post("http://localhost:8000/image/search", { status: 2 }).then((resp) => {
+				context.commit("SET_LOADING_STATUS", false);
+				context.commit("SET_DELETED_IMAGES", resp.data);
+			}).catch((error) => {
+				console.error(error);
+			});
+
+		},
 	}
 });
