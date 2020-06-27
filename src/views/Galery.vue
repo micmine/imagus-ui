@@ -4,18 +4,21 @@
 		<Popup></Popup>
 
 		<form method="POST" enctype="multipart/form-data" action="http://localhost:8000/image/upload">
-			<input class="input" type="text" name="title" placeholder="title" required>
-			<div class="file">
-				<label class="file-label">
-					<input class="file-input" type="file" name="image" required>
-					<span class="file-cta">
-						<span class="file-label">
-							Choose a file…
+			<div class="field is-grouped">
+				<div class="file">
+					<label class="file-label">
+						<input class="file-input" type="file" name="image" required>
+						<span class="file-cta">
+							<span class="file-label">
+								Choose a file…
+							</span>
 						</span>
-					</span>
-				</label>
+					</label>
+				</div>
+				<input class="input" type="text" name="title" placeholder="title" required>
+
 			</div>
-			<input type="hidden" name="redirect" value="http://localhost:8080">
+			<input type="hidden" name="redirect" value="http://localhost:8081">
 			<div class="field">
 				<div class="control">
 					<button class="button is-link">Upload</button>
@@ -24,10 +27,9 @@
 		</form>
 
 		<div class="images">
-
-			<div class="image" v-for="image in images" :key="image.uuid">
+			<div class="image card" v-for="image in images" :key="image.uuid">
 				<p>{{ image.title }}</p>
-				<img @contextmenu.prevent="$refs.menu.open($event, { uuid: image.uuid, source: image.source })" :src="image.source" :alt="image.title">
+				<img class="card-image" @contextmenu.prevent="$refs.menu.open($event, { uuid: image.uuid, source: image.source })" :src="image.source" :alt="image.title">
 			</div>
 
 		</div>
@@ -70,8 +72,8 @@
 	}
 
 	form {
-		padding-left: 10%;
 		width: 80%;
+		margin-bottom: 2vh;
 	}
 
 }

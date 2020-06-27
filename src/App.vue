@@ -1,6 +1,6 @@
 <template>
 	<div id="app">
-		<button @click="$keycloak.logoutFn" v-if="$keycloak.authenticated">Log out</button>
+		<button class="button logout" @click="$keycloak.logoutFn" v-if="$keycloak.authenticated">Log out</button>
 		<router-view/>
 	</div>
 </template>
@@ -16,5 +16,9 @@
 
 body {
 	padding: 5vh;
+}
+
+.logout {
+	float: right;
 }
 </style>

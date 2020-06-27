@@ -12,7 +12,9 @@
 .popup {
 	position: absolute;
 	top: 5vh;
-	left: 5vw;
+	left: 15%;
+	right: 1vw;
+	bottom: 5vh;
 	z-index: 100;
 }
 </style>
