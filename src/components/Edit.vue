@@ -43,7 +43,6 @@
 </style>
 
 <script>
-import axios from 'axios';
 import store from "../store";
 
 export default {
@@ -60,18 +59,15 @@ export default {
 	},
 	methods: {
 		submit: function () {
+			store.dispatch("saveEdit");
 			this.hide();
 		},
 		hide: function () {
 			store.state.edit.isActive = false;
 		},
 		load: function () {
-			axios.post("http://localhost:8000/image", { "uuid": store.state.edit.uuid }).then((resp) => {
-				store.state.edit.image = resp.data;
-			}).catch((error) => {
-				console.error(error);
-			});
-		}
+			store.dispatch("fetchEdit");
+		},
 	},
 	watch: {
 		uuid: function () {

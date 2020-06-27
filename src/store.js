@@ -50,5 +50,22 @@ export default new Vuex.Store({
 			});
 
 		},
+		fetchEdit(context) {
+			context.commit('SET_LOADING_STATUS', true);
+			axios.post("http://localhost:8000/image", { "uuid": this.state.edit.uuid }).then((resp) => {
+				context.commit("SET_LOADING_STATUS", false);
+				context.commit("SET_EDIT_IMAGE", resp.data);
+			}).catch((error) => {
+				console.error(error);
+			});
+		},
+		saveEdit(context) {
+			context.commit('SET_LOADING_STATUS', true);
+			axios.put("http://localhost:8000/image", this.state.edit.image).then(() => {
+				context.commit("SET_LOADING_STATUS", false);
+			}).catch((error) => {
+				console.error(error);
+			});
+		}
 	}
 });
