@@ -112,6 +112,7 @@ export default {
 				axios.put("http://localhost:8000/image", contextdata
 				).then((resp) => {
 					console.log(resp.data);
+					store.dispatch("fetchImages");
 				}).catch((error) => {
 					console.error(error);
 				});

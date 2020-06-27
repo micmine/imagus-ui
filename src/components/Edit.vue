@@ -60,6 +60,7 @@ export default {
 	methods: {
 		submit: function () {
 			store.dispatch("saveEdit");
+			store.dispatch("fetchImages");
 			this.hide();
 		},
 		hide: function () {
