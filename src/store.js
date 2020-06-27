@@ -1,7 +1,7 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
+import Vue from "vue";
+import Vuex from "vuex";
 
-import axios from 'axios';
+import axios from "axios";
 
 Vue.use(Vuex);
 
@@ -41,7 +41,7 @@ export default new Vuex.Store({
 	},
 	actions: {
 		fetchImages(context) {
-			context.commit('SET_LOADING_STATUS', true);
+			context.commit("SET_LOADING_STATUS", true);
 			axios.get("http://localhost:8000/image/list").then((resp) => {
 				context.commit("SET_LOADING_STATUS", false);
 				context.commit("SET_IMAGES", resp.data);
@@ -51,7 +51,7 @@ export default new Vuex.Store({
 
 		},
 		fetchEdit(context) {
-			context.commit('SET_LOADING_STATUS', true);
+			context.commit("SET_LOADING_STATUS", true);
 			axios.post("http://localhost:8000/image", { "uuid": this.state.edit.uuid }).then((resp) => {
 				context.commit("SET_LOADING_STATUS", false);
 				context.commit("SET_EDIT_IMAGE", resp.data);
@@ -60,7 +60,7 @@ export default new Vuex.Store({
 			});
 		},
 		saveEdit(context) {
-			context.commit('SET_LOADING_STATUS', true);
+			context.commit("SET_LOADING_STATUS", true);
 			axios.put("http://localhost:8000/image", this.state.edit.image).then(() => {
 				context.commit("SET_LOADING_STATUS", false);
 			}).catch((error) => {

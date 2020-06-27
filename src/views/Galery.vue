@@ -3,7 +3,7 @@
 		<Edit></Edit>
 		<Popup></Popup>
 
-		<form method="POST" enctype='multipart/form-data' action="http://localhost:8000/image/upload">
+		<form method="POST" enctype="multipart/form-data" action="http://localhost:8000/image/upload">
 			<input class="input" type="text" name="title" placeholder="title" required>
 			<div class="file">
 				<label class="file-label">
@@ -79,12 +79,12 @@
 
 <script>
 import store from "../store.js";
-import axios from 'axios';
-import VueContext from 'vue-context';
-import 'vue-context/src/sass/vue-context.scss';
+import axios from "axios";
+import VueContext from "vue-context";
+import "vue-context/src/sass/vue-context.scss";
 
-import Edit from '../components/Edit';
-import Popup from '../components/Popup';
+import Edit from "../components/Edit";
+import Popup from "../components/Popup";
 
 export default {
 	computed: {
