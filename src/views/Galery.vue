@@ -106,6 +106,7 @@ export default {
 				store.state.edit.uuid = contextdata.uuid;
 				store.state.edit.isActive = true;
 			} else if (text === "remove") {
+				contextdata.status = 2;
 				axios.put("http://localhost:8000/image", contextdata
 				).then((resp) => {
 					console.log(resp.data);
