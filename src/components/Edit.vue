@@ -21,7 +21,7 @@
 }
 
 .edit {
-	position: absolute;
+	position: fixed;
 	top: 20vh;
 	left: 5vw;
 	right: 5vw;

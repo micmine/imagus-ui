@@ -10,7 +10,7 @@
 }
 
 .popup {
-	position: absolute;
+	position: fixed;
 	top: 5vh;
 	left: 15%;
 	right: 1vw;
