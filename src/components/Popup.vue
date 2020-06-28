@@ -10,12 +10,16 @@
 }
 
 .popup {
-	position: fixed;
+	position: absolute;
 	top: 5vh;
 	left: 15%;
-	right: 1vw;
-	bottom: 5vh;
+	right: 15%;
 	z-index: 100;
+
+	img {
+		width: 80%;
+		height: 80%;
+	}
 }
 </style>
 
