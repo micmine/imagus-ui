@@ -3,7 +3,7 @@
 		<Edit></Edit>
 		<Popup></Popup>
 
-		<form method="POST" enctype="multipart/form-data" action="http://localhost:8000/image/upload">
+		<form method="POST" enctype="multipart/form-data" :action="uploadPath">
 			<div class="field is-grouped">
 				<div class="file">
 					<label class="file-label">
@@ -18,7 +18,7 @@
 				<input class="input" type="text" name="title" placeholder="title" required>
 
 			</div>
-			<input type="hidden" name="redirect" value="http://localhost:8081">
+			<input type="hidden" name="redirect" :value="frontend">
 			<div class="field">
 				<div class="control">
 					<button class="button is-link">Upload</button>
@@ -92,6 +92,12 @@ export default {
 	computed: {
 		images: function () {
 			return store.state.images;
+		},
+		uploadPath: function () {
+			return store.state.backend + "/image/upload";
+		},
+		frontend: function () {
+			return store.state.frontend;
 		}
 	},
 	components: {
@@ -109,7 +115,7 @@ export default {
 				store.state.edit.isActive = true;
 			} else if (text === "remove") {
 				contextdata.status = 2;
-				axios.put("http://localhost:8000/image", contextdata
+				axios.put(store.state.backend + "/image", contextdata
 				).then((resp) => {
 					console.log(resp.data);
 					store.dispatch("fetchImages");

@@ -18,7 +18,9 @@ export default new Vuex.Store({
 		},
 		images: [],
 		deletedImages: [],
-		loadingStatus: false
+		loadingStatus: false,
+		frontend: "http://localhost:8081",
+		backend: "http://localhost:8000"
 	},
 	mutations: {
 		SET_POPUP_SOURCE(state, source) {
@@ -47,7 +49,7 @@ export default new Vuex.Store({
 	actions: {
 		fetchImages(context) {
 			context.commit("SET_LOADING_STATUS", true);
-			axios.get("http://localhost:8000/image/list").then((resp) => {
+			axios.get(this.state.backend + "/image/list").then((resp) => {
 				context.commit("SET_LOADING_STATUS", false);
 				context.commit("SET_IMAGES", resp.data);
 			}).catch((error) => {
@@ -57,7 +59,7 @@ export default new Vuex.Store({
 		},
 		fetchEdit(context) {
 			context.commit("SET_LOADING_STATUS", true);
-			axios.post("http://localhost:8000/image", { "uuid": this.state.edit.uuid }).then((resp) => {
+			axios.post(this.state.backend + "/image", { "uuid": this.state.edit.uuid }).then((resp) => {
 				context.commit("SET_LOADING_STATUS", false);
 				context.commit("SET_EDIT_IMAGE", resp.data);
 			}).catch((error) => {
@@ -66,7 +68,7 @@ export default new Vuex.Store({
 		},
 		saveEdit(context) {
 			context.commit("SET_LOADING_STATUS", true);
-			axios.put("http://localhost:8000/image", this.state.edit.image).then(() => {
+			axios.put(this.state.backend + "/image", this.state.edit.image).then(() => {
 				context.commit("SET_LOADING_STATUS", false);
 			}).catch((error) => {
 				console.error(error);
@@ -74,7 +76,7 @@ export default new Vuex.Store({
 		},
 		fetchDeletedImages(context) {
 			context.commit("SET_LOADING_STATUS", true);
-			axios.post("http://localhost:8000/image/search", { status: 2 }).then((resp) => {
+			axios.post(this.state.backend + "/image/search", { status: 2 }).then((resp) => {
 				context.commit("SET_LOADING_STATUS", false);
 				context.commit("SET_DELETED_IMAGES", resp.data);
 			}).catch((error) => {
