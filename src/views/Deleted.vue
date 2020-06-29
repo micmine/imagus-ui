@@ -4,9 +4,9 @@
 		<Popup></Popup>
 
 		<div class="images">
-			<div class="image card" v-for="image in images" :key="image.uuid">
+			<div class="image card" v-for="image in images" @contextmenu.prevent="$refs.menu.open($event, { uuid: image.uuid, source: image.source })" :key="image.uuid">
 				<p>{{ image.title }}</p>
-				<img class="card-image" @contextmenu.prevent="$refs.menu.open($event, { uuid: image.uuid, source: image.source })" :src="image.source" :alt="image.title">
+				<img class="card-image" :src="image.source" :alt="image.title">
 			</div>
 
 		</div>
