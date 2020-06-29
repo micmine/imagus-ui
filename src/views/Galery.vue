@@ -68,6 +68,11 @@
 			display: inline-block;
 			padding: 1vh;
 			width: 400px;
+
+			img {
+				width: 400px;
+				height: 400px;
+			}
 		}
 	}
 
