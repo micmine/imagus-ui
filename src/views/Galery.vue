@@ -70,6 +70,7 @@
 			width: 400px;
 
 			img {
+                                object-fit: cover;
 				width: 400px;
 				height: 400px;
 			}
