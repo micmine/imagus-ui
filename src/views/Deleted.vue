@@ -46,6 +46,7 @@
 			padding: 1vh;
 			
 			img {
+                                object-fit: cover;
 				width: 400px;
 				height: 400px;
 			}
